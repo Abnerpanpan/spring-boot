@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+	<link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+	<link rel="Bookmark" href="img/logo.ico">
+	<title>小熊博客::修图区</title>
+
+	<link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css">  <!-- Font Icons -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/skin/cool-gray.css">
+	<link rel="stylesheet" href="css/components/sticky.css" />
+
+
+	<link rel="stylesheet" href="css/pstyle.css" />
+	<link rel="stylesheet" href="css/menu.css" >
+	<link rel="stylesheet" href="css/pic.css" >
+  </head>
+  
+  <body  style="background: #fff">
+  
+	<div th:replace="navbar-left :: navbar-left"></div>
+	<div th:replace="navbar :: navbar2"></div>
+	<a  href="#my-id" data-uk-modal="{center:true}"><div class="pic-btn"><span th:if="${session.user!=null}">发图</span></div></a>
+	<div id="my-id" class="uk-modal">
+		<div class="uk-modal-dialog ">
+			<a class="uk-modal-close uk-close"></a>
+			<form id="picForm" enctype="multipart/form-data">
+				<div class="acitve-title">上传图片</div>
+				<div class="font-red pmargin-bottom" style="font-size: 12px">说明：1、图片不大于10M；2、一次只上传一张</div>
+				<input name="filedata" type="file" accept="image/*" multiple class="picInput nopadding pmargin-bottom">
+				<textarea name="picDescribe" id="content"  rows="" cols="" class="picText pmargin-bottom" placeholder="添加图片描述"></textarea>
+				<input id="picSub" type="button" class="pbtn uk-width-1-1 bg-balck pmargin-bottom" value="提交"/>
+			</form>
+		</div>
+	</div>
+
+
+	<div class="picContainer main">
+		<div class="grid">
+			<div class="grid-sizer"></div>
+			<div th:each="pic:${dataList.list}" class="grid-item ">
+				<figure>
+					<img th:src="${pic.path}" src="images/gallery/01.jpg">
+					<figcaption>
+						<h2 th:text="${pic.username}">admin</h2>
+						<p th:text="${pic.picDescribe}">这也是文字这也是文字这也是文字这也是文字</p>
+					</figcaption>
+				</figure>
+			</div>
+		</div>
+		<div class="page-load-status">
+			<span style="display: none" id="totalPage" th:text="${dataList.pages}"></span>
+			<div class="loader-ellips infinite-scroll-request">
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+			</div>
+			<p class="infinite-scroll-last">别拉了,下边没有啦~</p>
+			<p class="infinite-scroll-error">No more pages to load</p>
+		</div>
+	</div>
+	<a href="#" ><i class="uk-icon-arrow-up toTop"></i></a> <!-- Scroll to top button -->
+	<div th:replace="footer :: footer"></div>
+
+	<!--==========Plugins JS ==========-->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+	<script src="js/components/sticky.js"></script>
+	<script src="inc/jquery.easing.min.js"></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+	<script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+	<script src="js/pan.js"></script>
+
+	<script type="text/javascript">
+		function addPic(data) {
+		    var html="";
+		    html+="<div class=\"grid-item \">";
+		    html+="<figure>";
+		    html+="<img src=\"";
+		    html+=data.pic.path;
+		    html+="\">";
+		    html+="<figcaption>";
+		    html+="<h2>";
+		    html+=data.pic.username;
+		    html+="</h2>";
+		    html+="<p>";
+		    html+=data.pic.picDescribe;
+		    html+="</p>";
+		    html+="</figcaption>";
+		    html+="</figure>";
+		    html+="</div>";
+			var $items =$(html);
+         	var $grid= $('.grid').imagesLoaded().progress( function() {
+                $grid.masonry('layout');
+            });
+            $grid.prepend($items).masonry( 'prepended', $items );
+		}
+	</script>
+	<script type="text/javascript">
+		$("#picSub").click(function () {
+            $("#picSub").attr("disabled","disabled");
+			var form=document.getElementById("picForm");
+			var formData = new FormData(form);
+			$.ajax({
+				type:'POST',
+				url:"/uploadImage",
+				data:formData,
+				dataType:'json',
+				async: false,
+				processData: false,  // 告诉jQuery不要去处理发送的数据
+				contentType: false,
+				success:function (data) {
+					if(data.errno==0){
+                        addPic(data)
+                        var modal = UIkit.modal(".uk-modal");
+                        modal.hide()
+                    }else {
+						alert("出错啦~");
+					}
+                    $("#picSub").removeAttr("disabled");
+				}
+			})
+
+		})
+	</script>
+	<script type="text/javascript">
+
+		jQuery(document).ready(function($) {
+				var $grid =$('.grid').masonry({
+					itemSelector: '.grid-item',
+					columnWidth: '.grid-sizer',
+					percentPosition: true,
+					transitionDuration: '0.8s',
+				});
+
+				$grid.imagesLoaded().progress( function() {
+					$grid.masonry('layout');
+				});
+
+           		var msnry = $grid.data('masonry');
+           		var totalPage=Number($("#totalPage").text());
+				$grid.infiniteScroll({
+					// Infinite Scroll options...
+					append: '.grid-item',
+                    path: function () {
+                            if(this.loadCount <totalPage-1){
+                                var pageNum= this.loadCount + 2;;
+                                return "/toPic?pageNum="+pageNum;
+                            }
+                    },
+					outlayer: msnry,
+                    status: '.page-load-status',
+                    scrollThreshold: 100,
+
+				});
+		})
+	</script>
+
+	
+	
+	
+  </body>
+</html>

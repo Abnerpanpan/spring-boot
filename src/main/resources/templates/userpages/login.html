@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	   xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    
+    <title>用户登录</title>
+
+
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="css/pstyle.css" />
+	<link rel="stylesheet" href="css/menu.css" >
+  </head>
+  
+  <body class="fullbody">
+	<div th:replace="navbar-left :: navbar-left"></div>
+	<div th:replace="navbar :: navbar2"></div>
+
+	<div class="hidden-xs hidden-sm hidden-md">
+	  <!-- ========= VIDIO STRAT =========-->
+	  <video autoplay="autoplay" muted="muted"   poster="img/vidio.jpg" loop="loop" style=" width: 100%; height: 100%;object-fit:cover;object-position:center center">
+		  <source type="video/webm" src="img/mainvidio.webm"/>
+		  <source type="video/mp4" src="img/mainvidio.mp4"/>
+	  </video>
+	  <div class="background-overlay"  style="background-color: rgba(48,38,38,0.7);"></div>
+	  <!-- ========= VIDIO END =========-->
+	</div>
+
+	<div class="login-container min-shadow">
+		<div class="login-title">用户登录
+		</div>
+		<form id="userform" action="/login" method="post" >
+			<div id="errormsg" class="erromsg"><i class="uk-icon-times-circle padding-right-5"></i>
+				<span id="error"></span>
+			</div>
+			<div class="row" style="margin-bottom: 0">
+				<input name="username" class="forminput" type="text" placeholder="请输入邮箱或用户名" ><br/>
+				<div class="pmargin-bottom-lg"></div>
+				<input name="pwd" class="forminput" type="password" placeholder="请输入6-12位密码"><br/>
+				<div class="pmargin-bottom-lg"></div>
+			</div>
+			<input id="loginbtn" type="button" onclick="loginsub()" class="login-btn"  value="登&emsp;录">
+			<input id="lastUrl" th:name="lastUrl" th:value="${session.lastUrl}" type="hidden">
+			<div class="toregist"><a href="/toSignUp">没有账号？点这里注册</a></div>
+		</form>
+	</div>
+
+<!--	<div class="bg-white min-shadow min-radius card-mobile  visible-xs visible-sm visible-md" >
+		<div class="login-title-mb pmargin-bottom-lg">用户登录</div>
+		<form id="userform" action="/login" method="post">
+			<div id="errormsg" class="erromsg-mb uk-width-1-1 pmargin-bottom-lg"><i class="uk-icon-times-circle padding-right-5"></i><span id="error"></span></div>
+			<div class="signtitle-mb">用户名：</div>
+			<input name="username"  class="signinput-mb uk-width-1-1 pmargin-bottom-lg" type="text"  placeholder="请输入邮箱或用户名"/>
+			<div class="signtitle-mb">密码：</div>
+			<input name="pwd" class="signinput-mb uk-width-1-1 pmargin-bottom-lg"  type="password"  placeholder="请输入6-12位密码"/>
+			<input id="lastUrl" th:name="lastUrl" th:value="${session.lastUrl}" type="hidden">
+			<input id="loginbtn" type="button" onclick="loginsub()" class="login-btn min-radius pmargin-top-fix"  value="登&emsp;录">
+			<div class="toregist"><a href="/toSignUp">没有账号？点这里注册</a></div>
+		</form>
+	</div>-->
+
+	<!--==========Plugins JS ==========-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+
+
+  	<script type="text/javascript">
+  		function loginsub(){
+  			$.ajax({
+  				type: "post",
+  				url: "/login",
+  				data:$("#userform").serialize(),
+  				dataType:'json',
+  				async: false,  
+  				error: function(jqXHR, textStatus, errorThrown,data) {  //失败的话
+            /*弹出jqXHR对象的信息*/
+            alert(jqXHR);
+
+            	},  
+            	success: function(data) {  //成功
+                	if(data==100){
+                	    var lastUrl=$("#lastUrl").val();
+                	    window.location.href=lastUrl;
+                	}else{
+                		$("#errormsg").show();
+                		$("#error").html("用户名或密码错误")
+                	}
+            	} 
+  			})
+  		}
+  
+  	</script>       
+         
+  </body>
+</html>

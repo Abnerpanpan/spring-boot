@@ -1,0 +1,75 @@
+  <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <body>
+	<header th:fragment="navbar" id="header" class="header-main">
+	    <!-- Begin Navbar -->
+		<div data-uk-sticky class="bg-balck hidden-xs">
+				<div class="container height-nav">
+					<div class="top-nav-logo"><a>logo</a></div>
+					<div class="top-nav"><a href="#body"><span class="top-line">主页</span></a></div>
+					<div class="top-nav"><a>博客</a></div>
+					<div class="top-nav"><a>p图</a></div>
+					<div class="top-nav"><a>论坛</a></div>
+					<div class="top-nav"><a>时光</a></div>
+					<div class="top-nav"><a>秘密</a></div>
+					<div class="top-nav-login"><a data-uk-modal="{center:true}" href="#p-login"  class="uk-icon-hover uk-icon-user uk-icon-medium"></a></div>
+				</div>
+		</div>	
+		
+		 <!--========== inmobile ==========-->
+	 	<nav id="main-navbar" class="navbar navbar-default  visible-xs" role="navigation">	     
+		    <div class="container visible-xs mob-nav">
+				<div class="col-xs-3 " >
+					<button type="button" class="navbar-toggle" data-uk-offcanvas="{target:'#offcanvas-3'}">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+		       	<div class="col-xs-6 visible-xs">
+	            	<a href="#" class="mob-logo">Unika</a>
+	       		</div>
+				<div class="col-xs-3 visible-xs" >
+	    			<a class="mob-login" href="#p-login" data-uk-modal="{center:true}">LOGIN</a>
+	    		</div>
+			</div>
+		    <!--========== inmobile ==========-->
+	    <!-- End Navbar -->
+		</nav>	
+	</header>
+	
+	
+	<div  th:fragment="navbar2" id="navbar2" class="header pnav" data-uk-sticky>
+		<div class="container">
+			<div id='cssmenu' >
+				<div id="menu-logo" class="visible-xs visible-sm visible-md">小熊博客</div>
+				<div data-uk-offcanvas="{target:'#offcanvas-3'}" id="menu-button" class="visible-xs visible-sm visible-md">
+					<div class="psr-only"></div>
+					<span class="picon-bar"></span>
+					<span class="picon-bar"></span>
+				</div>
+				<ul class="hidden-xs hidden-sm hidden-md">
+				   <li class="active"><a href='/'><span>小熊博客</span></a></li>
+				   
+				   <li><a href='/'><span>主页</span></a></li>
+				   <li><a href='/toBlog'><span>博客</span></a></li>
+				   <li><a href='/toPic'><span>修图</span></a></li>
+				   <li><a href='/toSecret'><span>秘密</span></a></li>
+
+				   <li style="float: right;">
+				   <a href="/toLogin" th:if="${session.user}==null">登录</a>
+				   <a href="#"  th:if="${session.user}!=null" th:text=${session.user.username}>用户</a>
+				   <ul th:if="${session.user}!=null">
+					 <li class='mid-shadow'><a href='/logout'><span>注销</span></a>
+					 </li>
+				  </ul>
+				   </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html> 		

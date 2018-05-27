@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="errorPage">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+    <link rel="Bookmark" href="img/logo.ico">
+    <title>小熊博客</title>
+<body class="fullbody bg-balck" style="background: #232323;text-align: center">
+    <div style="position: relative;margin-top: 100px;"><img style="cursor: pointer" onclick="returnBack()" src="img/logo_200x200.png"></div>
+
+    <div style="margin-top: 20px;color: #555" th:text="${url ?: '未捕捉到URL'}"></div>
+    <h2 style="color: #fff" th:text="${null == exception ? '发生错误啦~' : exception.message}"></h2>
+  <script type="text/javascript">
+      function returnBack() {
+          window.history.back();
+      }
+  </script>
+</body>
+</html>

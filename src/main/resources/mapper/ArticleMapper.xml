@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pan.springboot.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.pan.springboot.entity.Article">
+    <id column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="selection_id" jdbcType="BIGINT" property="selectionId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="click_count" jdbcType="BIGINT" property="clickCount" />
+    <result column="replay_count" jdbcType="BIGINT" property="replayCount" />
+    <result column="last_replaytime" jdbcType="TIMESTAMP" property="lastReplaytime" />
+    <result column="astaus" jdbcType="BIGINT" property="astaus" />
+    <result column="alike" jdbcType="BIGINT" property="alike" />
+    <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pan.springboot.entity.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithCustom" type="com.pan.springboot.entity.ArticleCustom">
+    <result column="selection_name" jdbcType="VARCHAR" property="selectionName"/>
+    <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    article_id, selection_id, user_id, title, creat_time, click_count, replay_count, 
+    last_replaytime, astaus, alike, article_abstract
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where article_id = #{articleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from article
+    where article_id = #{articleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pan.springboot.entity.Article">
+    insert into article (article_id, selection_id, user_id, 
+      title, creat_time, click_count, 
+      replay_count, last_replaytime, astaus, 
+      alike, article_abstract, content
+      )
+    values (#{articleId,jdbcType=BIGINT}, #{selectionId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, #{clickCount,jdbcType=BIGINT}, 
+      #{replayCount,jdbcType=BIGINT}, #{lastReplaytime,jdbcType=TIMESTAMP}, #{astaus,jdbcType=BIGINT}, 
+      #{alike,jdbcType=BIGINT}, #{articleAbstract,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pan.springboot.entity.Article">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="selectionId != null">
+        selection_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="clickCount != null">
+        click_count,
+      </if>
+      <if test="replayCount != null">
+        replay_count,
+      </if>
+      <if test="lastReplaytime != null">
+        last_replaytime,
+      </if>
+      <if test="astaus != null">
+        astaus,
+      </if>
+      <if test="alike != null">
+        alike,
+      </if>
+      <if test="articleAbstract != null">
+        article_abstract,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="selectionId != null">
+        #{selectionId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clickCount != null">
+        #{clickCount,jdbcType=BIGINT},
+      </if>
+      <if test="replayCount != null">
+        #{replayCount,jdbcType=BIGINT},
+      </if>
+      <if test="lastReplaytime != null">
+        #{lastReplaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="astaus != null">
+        #{astaus,jdbcType=BIGINT},
+      </if>
+      <if test="alike != null">
+        #{alike,jdbcType=BIGINT},
+      </if>
+      <if test="articleAbstract != null">
+        #{articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.springboot.entity.Article">
+    update article
+    <set>
+      <if test="selectionId != null">
+        selection_id = #{selectionId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clickCount != null">
+        click_count = #{clickCount,jdbcType=BIGINT},
+      </if>
+      <if test="replayCount != null">
+        replay_count = #{replayCount,jdbcType=BIGINT},
+      </if>
+      <if test="lastReplaytime != null">
+        last_replaytime = #{lastReplaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="astaus != null">
+        astaus = #{astaus,jdbcType=BIGINT},
+      </if>
+      <if test="alike != null">
+        alike = #{alike,jdbcType=BIGINT},
+      </if>
+      <if test="articleAbstract != null">
+        article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where article_id = #{articleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pan.springboot.entity.Article">
+    update article
+    set selection_id = #{selectionId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      click_count = #{clickCount,jdbcType=BIGINT},
+      replay_count = #{replayCount,jdbcType=BIGINT},
+      last_replaytime = #{lastReplaytime,jdbcType=TIMESTAMP},
+      astaus = #{astaus,jdbcType=BIGINT},
+      alike = #{alike,jdbcType=BIGINT},
+      article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where article_id = #{articleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pan.springboot.entity.Article">
+    update article
+    set selection_id = #{selectionId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      click_count = #{clickCount,jdbcType=BIGINT},
+      replay_count = #{replayCount,jdbcType=BIGINT},
+      last_replaytime = #{lastReplaytime,jdbcType=TIMESTAMP},
+      astaus = #{astaus,jdbcType=BIGINT},
+      alike = #{alike,jdbcType=BIGINT},
+      article_abstract = #{articleAbstract,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=BIGINT}
+  </update>
+  <select id="selectArticle" resultMap="ResultMapWithCustom">
+    SELECT
+    a.article_id,s.sname AS selection_name,u.username AS create_user, a.title,a.content, a.creat_time, a.click_count, a.replay_count, a.last_replaytime, a.astaus, a.alike ,a.article_abstract
+    FROM article AS a
+    LEFT JOIN USER u
+    ON a.user_id=u.user_id
+    LEFT JOIN selection s
+    ON a.selection_id=s.selection_id
+    ORDER BY creat_time DESC
+  </select>
+  <select id="selectByPrimaryKeyCustom" parameterType="java.lang.Long" resultMap="ResultMapWithCustom">
+    SELECT
+    a.article_id,a.selection_id,s.sname AS selection_name,u.username AS create_user, a.title,a.content, a.astaus, a.alike
+    FROM article AS a
+    LEFT JOIN USER u
+    ON a.user_id=u.user_id
+    LEFT JOIN selection s
+    ON a.selection_id=s.selection_id
+    WHERE article_id= #{articleId,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    
+    <title>newblog</title>
+	
+	
+	<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css">  <!-- Font Icons -->
+	  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/skin/cool-gray.css">
+
+	  <link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="css/pstyle.css" />
+	<link rel="stylesheet" href="css/components/sticky.css" /> 
+	
+  </head>
+  
+  <body class="bg-white">
+	<div data-uk-sticky class="bg-balck nav-shadow">
+			<div class="container">
+				<div class="top-nav">写博客</div>
+				<div class="top-nav-right"><a href="#" onclick="window.history.go(-1)" class="uk-icon-times uk-icon-medium"></a></div>
+			</div>
+	</div>	
+		
+   	<!--==========BEGIN TOPCARD ==========-->
+   	<div class="container pmargin-mid ">
+    	<div class="col-xs-12 nopadding" >
+			<form id="articleForm" >
+				<div class="form-group uk-clearfix">
+					<div class="col-xs-1 nopadding ">
+						<select name="selectionId" class="article-selection min-shadow" >
+							<option th:each="s:${dataList}" th:value="${s.selectionId}" th:text="${s.sname}">技术类</option>
+						</select>
+					</div>
+					<div class="col-xs-11 nopadding">
+						<input name="title" type="text" class="article-title min-shadow " id="title" placeholder="请输入标题">
+					</div>
+				</div>
+				<div class="form-group bg-white min-radius min-shadow">
+					<div id="editor">
+					</div>
+					<textarea name="content" id="content" style="display: none"></textarea>
+					<textarea name="articleAbstract" id="articleAbstract" style="display: none"></textarea>
+				</div>
+				<input id="articleSub" type="button" class="pbtn uk-width-1-1 bg-balck pmargin-bottom min-shadow" value="提交"/>
+			</form>
+    	</div>
+   	</div>
+   	<!--==========END TOPCARD ==========-->
+		
+
+
+	<!--==========Plugins JS ==========-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+	<script type="text/javascript" src="js/wangEditor.js"></script>
+	<script type="text/javascript">
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        var $text1 = $('#content');
+        editor.customConfig.onchange = function (html) {
+            // 监控变化，同步更新到 textarea
+            $text1.val(html)
+        };
+        // 自定义菜单配置
+        editor.customConfig.menus = [
+            'head',  // 标题
+            'bold',  // 粗体
+            'italic',  // 斜体
+            'underline',  // 下划线
+            'strikeThrough',  // 删除线
+            'foreColor',  // 文字颜色
+            'backColor',  // 背景颜色
+            'link',  // 插入链接
+            'list',  // 列表
+            'justify',  // 对齐方式
+            'quote',  // 引用
+            'emoticon',  // 表情
+            'image',  // 插入图片
+            'table',  // 表格
+            'code',  // 插入代码
+            'undo',  // 撤销
+            'redo'
+        ];
+        // 自定义配置颜色（字体颜色、背景色）
+        editor.customConfig.colors = [
+            '#000000',
+            '#eeece0',
+            '#1c487f',
+            '#4d80bf',
+            '#c24f4a',
+            '#8baa4a',
+            '#7b5ba1',
+            '#46acc8',
+            '#f9963b',
+            '#ffffff'
+        ];
+        editor.customConfig.uploadImgServer = '/uploadImage';
+        // 将图片大小限制为 3M
+        editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+        // 限制一次最多上传 5 张图片
+        editor.customConfig.uploadImgMaxLength = 5;
+        editor.customConfig.uploadFileName = 'filedata';
+        editor.create();
+        // 初始化 textarea 的值
+        $text1.val(editor.txt.html())
+	</script>
+  <script type="text/javascript">
+	$("#articleSub").click(function () {
+        var $content=$("#content").val().replace(/<[^>].*?>/g,"").substring(0,250);;
+        $("#articleAbstract").val($content);
+		$.ajax({
+			type:"post",
+			url:"/saveArticle",
+            data:$("#articleForm").serialize(),
+            dataType:'json',
+            async: false,
+            success:function (data) {
+				if(data==100){
+				    window.location.href="/toBlog";
+				}else {
+				    alert("出错啦~");
+				}
+            }
+        })
+    })
+  </script>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pan.springboot.dao.SelectionMapper">
+  <resultMap id="BaseResultMap" type="com.pan.springboot.entity.Selection">
+    <id column="selection_id" jdbcType="BIGINT" property="selectionId" />
+    <result column="sname" jdbcType="VARCHAR" property="sname" />
+    <result column="selection_click_count" jdbcType="BIGINT" property="selectionClickCount" />
+    <result column="selection_article_count" jdbcType="BIGINT" property="selectionArticleCount" />
+    <result column="selection_parent_id" jdbcType="BIGINT" property="selectionParentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    selection_id, sname, selection_click_count, selection_article_count, selection_parent_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from selection
+    where selection_id = #{selectionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from selection
+    where selection_id = #{selectionId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pan.springboot.entity.Selection">
+    insert into selection (selection_id, sname, selection_click_count, 
+      selection_article_count, selection_parent_id)
+    values (#{selectionId,jdbcType=BIGINT}, #{sname,jdbcType=VARCHAR}, #{selectionClickCount,jdbcType=BIGINT}, 
+      #{selectionArticleCount,jdbcType=BIGINT}, #{selectionParentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pan.springboot.entity.Selection">
+    insert into selection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="selectionId != null">
+        selection_id,
+      </if>
+      <if test="sname != null">
+        sname,
+      </if>
+      <if test="selectionClickCount != null">
+        selection_click_count,
+      </if>
+      <if test="selectionArticleCount != null">
+        selection_article_count,
+      </if>
+      <if test="selectionParentId != null">
+        selection_parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="selectionId != null">
+        #{selectionId,jdbcType=BIGINT},
+      </if>
+      <if test="sname != null">
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionClickCount != null">
+        #{selectionClickCount,jdbcType=BIGINT},
+      </if>
+      <if test="selectionArticleCount != null">
+        #{selectionArticleCount,jdbcType=BIGINT},
+      </if>
+      <if test="selectionParentId != null">
+        #{selectionParentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.springboot.entity.Selection">
+    update selection
+    <set>
+      <if test="sname != null">
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionClickCount != null">
+        selection_click_count = #{selectionClickCount,jdbcType=BIGINT},
+      </if>
+      <if test="selectionArticleCount != null">
+        selection_article_count = #{selectionArticleCount,jdbcType=BIGINT},
+      </if>
+      <if test="selectionParentId != null">
+        selection_parent_id = #{selectionParentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where selection_id = #{selectionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pan.springboot.entity.Selection">
+    update selection
+    set sname = #{sname,jdbcType=VARCHAR},
+      selection_click_count = #{selectionClickCount,jdbcType=BIGINT},
+      selection_article_count = #{selectionArticleCount,jdbcType=BIGINT},
+      selection_parent_id = #{selectionParentId,jdbcType=BIGINT}
+    where selection_id = #{selectionId,jdbcType=BIGINT}
+  </update>
+  <select id="find" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from selection
+    ORDER BY selection_id
+  </select>
+</mapper>

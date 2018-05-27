@@ -1,0 +1,23 @@
+  <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <body>
+	<!--========== BEGIN 侧边 ==========-->
+	<div th:fragment="navbar-left" id="offcanvas-3" class="uk-offcanvas" >
+		<div class="uk-offcanvas-bar">
+	        <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+	            <li class="uk-active"><a href="/">小熊博客</a></li>
+	            <li><a href="/toBlog">博客</a></li>
+				<li><a href="/toPic">修图</a></li>
+				<li><a href="/toSecret">秘密</a></li>
+				<li><a href="/toLogin" th:if="${session.user}==null">登录</a>
+					<a href="#"  th:if="${session.user}!=null" th:text=${session.user.username}>用户</a>
+				</li>
+
+
+	        </ul>
+		</div>
+	</div>
+	<!-- ========= END 侧边 =========--> 	
+</body>
+</html> 		

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+	<link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+	<link rel="Bookmark" href="img/logo.ico">
+    <title>小熊博客::修图区</title>
+	
+	
+	<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css">  <!-- Font Icons -->
+	<link rel="stylesheet" href="inc/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/skin/cool-gray.css">
+	<link rel="stylesheet" href="css/components/sticky.css" /> 
+	<link rel="stylesheet" href="css/components/form-file.css" />
+
+	<link rel="stylesheet" href="css/uikit.gradient.css" /> 
+	<link rel="stylesheet" href="css/pstyle.css" /> 
+    <link rel="stylesheet" href="css/menu.css" >
+
+	<link rel="stylesheet" href="css/gallery/foundation.min.css"  type="text/css">
+	<link rel="stylesheet" href="css/gallery/set1.css" type="text/css" />
+	<link href="css/gallery/responsive.css" rel="stylesheet" type="text/css">
+	  <link rel="stylesheet" href="css/gallery/main.css" type="text/css">
+  </head>
+  
+  <body>
+  
+	<div th:replace="navbar-left :: navbar-left"></div>
+	<div th:replace="navbar :: navbar2"></div>
+		
+
+	<a  href="#my-id" data-uk-modal="{center:true}"><div class="pic-btn"><span>发图</span></div></a>
+	<div id="my-id" class="uk-modal">
+		<div class="uk-modal-dialog ">
+			<a class="uk-modal-close uk-close"></a>
+			<form id="picForm" enctype="multipart/form-data">
+			<div class="acitve-title">上传图片</div>
+			<input name="filedata" type="file" accept="image/*" multiple class="picInput nopadding pmargin-bottom">
+			<textarea name="picDescribe" id="content"  rows="" cols="" class="picText pmargin-bottom" placeholder="添加图片描述"></textarea>
+			<input id="picSub" type="button" class="pbtn uk-width-1-1 bg-balck pmargin-bottom" value="提交"/>
+			</form>
+		</div>
+	</div>
+
+
+	<main class="main-wrapper" id="container">
+
+		<!-- image Gallery -->
+
+		<div class="wrapper" >
+			<div class="">
+				<ul id="picUl" class="small-block-grid-2 medium-block-grid-3 large-block-grid-5 masonry ">
+					<li class="masonry-item grid" >
+						<figure class="effect-sarah" style="overflow: hidden;"> <img src="images/gallery/01.jpg" alt=""/>
+							<figcaption>
+								<h2>admin</h2>
+								<p>我要p图我要要p图我要p图我要p图我要p图我p图我要p图我要p图我p图我要p图我要p图我p图我要p图我要p</p>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/02.jpg" alt="" />
+							<figcaption>
+								<p>我要p图我要要p图我要p图我要p图我要p图我p图我要p图我要p图我p图我要p图我要p图我p图我要p图我要p图我p图我要p图我要p图我要p图我要p图我要p图我要p图我要p图我要p图我要p图我</p>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/03.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/04.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/05.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/06.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/07.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/08.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/09.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/10.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/11.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/12.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/13.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/14.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/16.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/17.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/18.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/gallery/19.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img src="images/P6.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+					<li class="masonry-item grid">
+						<figure class="effect-sarah"> <img  src="img/slider-bg.jpg" alt="" />
+							<figcaption>
+								<h2>Photo <span>Title</span></h2>
+								<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+								<a href="details.html">View more</a> </figcaption>
+						</figure>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</main>
+
+
+
+
+
+
+
+
+
+
+
+		<div class="padding-top-lg"></div>
+	</div>
+
+
+
+
+
+	<a href="#" ><i class="uk-icon-arrow-up toTop"></i></a> <!-- Scroll to top button -->
+	<div th:replace="footer :: footer"></div>
+
+         
+	<!--==========Plugins JS ==========-->      
+	<script src="inc/jquery/jquery-1.11.1.min.js"></script>
+	<script src="js/uikit.js"></script>
+	<script src="js/components/sticky.js"></script>	
+	<script src="js/pan.js"></script>
+
+	<script src="js/gallery/masonry.pkgd.min.js" type="text/javascript"></script>
+	<script src="js/gallery/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+	<script src="js/gallery/jquery.infinitescroll.min.js" type="text/javascript"></script>
+<!--	<script src="js/gallery/main.js" type="text/javascript"></script>-->
+	<script src="inc/jquery.easing.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $masonry = $(".masonry").masonry({
+                itemSelector:".masonry-item"
+            })
+        })
+    </script>
+	<script type="text/javascript">
+        $("#picSub").click(function () {
+            var form=document.getElementById("picForm");
+            var formData = new FormData(form);
+            $.ajax({
+                type:'POST',
+                url:"/uploadImage",
+                data:formData,
+                dataType:'json',
+                async: false,
+                processData: false,  // 告诉jQuery不要去处理发送的数据
+                contentType: false,
+                success:function (data) {
+                    if(data.errno==0){
+                        var modal = UIkit.modal(".modalSelector");
+                        modal.hide();
+                        addPic(data);
+                    }else {
+                        alert("出错啦~");
+                    }
+                }
+            })
+
+        })
+	</script>
+  <script type="text/javascript">
+	  function addPic(data) {
+	      var html="";
+		  html+="<li class=\"masonry-item grid\" style=\"position: absolute;\">";
+		  html+="<figure class=\"effect-sarah\" style=\"overflow: hidden;\">";
+		  html+="<img alt=\"\" src=\"";
+		  html+=data.pic.path;
+		  html+="\" class=\"animate tada\">";
+		  html+="<figcaption>";
+		  html+="<h2>";
+		  html+=data.pic.username;
+		  html+="</h2>";
+		  html+="<p class=\"description\">";
+		  html+=data.pic.picDescribe;
+		  html+="</p>";
+		  html+="<a href=\"details.html\">View more</a> </figcaption>";
+		  html+="</figure>";
+		  html+="</li>";
+          var $items = $(html);
+          alert($items)
+          $(".masonry").prepend($items).masonry( 'prepended', $items );
+      }
+  </script>
+
+  </body>
+</html>

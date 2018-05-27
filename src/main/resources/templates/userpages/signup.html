@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	   xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    
+    <title>用户注册</title>
+
+
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="css/pstyle.css" />
+	<link rel="stylesheet" href="css/menu.css" >
+  </head>
+  
+  <body class="fullbody">
+	<div th:replace="navbar-left :: navbar-left"></div>
+	<div th:replace="navbar :: navbar2"></div>
+
+	<div class="hidden-xs hidden-sm hidden-md">
+		<!-- ========= VIDIO STRAT =========-->
+		<video autoplay="autoplay" muted="muted"   poster="img/vidio.jpg" loop="loop" style=" width: 100%; height: 100%;object-fit:cover;object-position:center center">
+			<source type="video/webm" src="img/mainvidio.webm"/>
+			<source type="video/mp4" src="img/mainvidio.mp4"/>
+		</video>
+		<div class="background-overlay"  style="background-color: rgba(48,38,38,0.7);"></div>
+		<!-- ========= VIDIO END =========-->
+	</div>
+ 	<form id="signupform" action="/signup" method="post" onsubmit="return checkform()">
+		<div class="signup-container min-shadow bg-white padding-sm-y">
+			<div class="login-title">用户注册
+			</div>
+			<div class="row padding-sigup pmargin-bottom">
+				<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 nopadding ">
+					<P>用户名：</P>
+				</div>
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 nopadding">
+					<input name="username" onblur="checkusername()" type="text" placeholder="请输入您的用户名" >
+				</div>
+				<div id="userspan"  class="errormsg"></div><br/>
+			</div>
+			<div class="row padding-sigup pmargin-bottom">
+				<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 nopadding ">
+					<P>密码：</P>
+				</div>
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 nopadding">
+					<input name="pwd" onblur="checkpwd()" type="password" placeholder="请输入8-16位密码">
+				</div>
+				<div id="pwdspan" class="errormsg"></div><br/>
+			</div>
+			<div class="row padding-sigup pmargin-bottom">
+				<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 nopadding ">
+					<P>确认密码：</P>
+				</div>
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 nopadding">
+					<input name="repwd" onblur="checkrepsw()" type="password" placeholder="请确认密码" >
+				</div>
+				<div id="repwdspan" class="errormsg"></div><br/>
+			</div>
+			<div class="row padding-sigup pmargin-bottom">
+				<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 nopadding ">
+					<P>邮箱：</P>
+				</div>
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 nopadding">
+					<input name="email" onblur="checkemail()" class="signinput" type="text" placeholder="请输入您的邮箱" >
+				</div>
+				<div id="emailspan" class="errormsg"></div><br/>
+			</div>
+			<div class="padding-sigup pmargin-bottom">
+				<span class="signtitle padding-right-30 ">性别：</span>男&emsp;<input name="gender" value="1" type="radio" checked="checked">&emsp;&emsp;&emsp;
+				女&emsp;<input name="gender" value="0"  type="radio">	<br/>
+			</div>
+			<div class="padding-sigup pmargin-lg">
+				<input id="signupbtn" type="button" onclick="signup()" class="signup-btn"  value="注&emsp;册">
+			</div>
+		</div>
+	</form>
+
+
+	<!--==========Plugins JS ==========-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+
+  	<script type="text/javascript">
+  		function signup(){
+  			$.ajax({
+  				type: "post",
+  				url: "/signUp",
+  				data:$("#signupform").serialize(),
+  				dataType:'json',
+  				async: false,  
+  				error: function(jqXHR, textStatus, errorThrown,data) {  //失败的话
+            /*弹出jqXHR对象的信息*/
+
+            	},  
+            	success: function(data) {  //成功
+                	if(data==100){
+                	 alert("注册成功，请前往邮箱激活~");
+                	}else{
+                		alert("注册失败");
+                	}
+            	} 
+  			})
+  		}
+  	
+  	
+    function check(name,spanid,regx,okinfo,erro){
+        var flag=false;
+        var userNode=document.getElementsByName(name)[0];
+        var username=userNode.value;
+        var spanNode=document.getElementById(spanid);
+        if(regx.test(username)){
+        	userNode.style.border='1px solid #cecece';
+            spanNode.innerHTML=okinfo.fontcolor('green');
+            flag=true;
+        }
+        else{
+            spanNode.innerHTML=erro.fontcolor('#C83935');
+            userNode.style.border='1px solid #C83935';
+        }
+        return flag;
+    }
+    function checkusername(){
+        var reg=new RegExp("^[a-zA-Z0-9_]{2,25}$");
+        return check("username","userspan",reg,"","用户名为2-25个字符,不能包含特殊字符哦");
+
+    }
+    function checkpwd(){
+        var reg=new RegExp("^.{8,16}$");
+        return check("pwd","pwdspan",reg,"","用户密码需要8-16位哦");
+    }
+    function checkemail(){
+        var reg=new RegExp("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$");
+        return check("email","emailspan",reg,"","邮箱格式不正确哦");
+    }
+    function checkrepsw(){
+        var flag=false;
+        var pswNode=document.getElementsByName("pwd")[0].value;
+        var repswNode=document.getElementsByName("repwd")[0].value;
+        var respNode=document.getElementById("repwdspan");
+        if(pswNode==repswNode){
+            document.getElementsByName("repwd")[0].style.border='1px solid #cecece';
+            respNode.innerHTML="".fontcolor('green');
+            flag=true;
+        }
+        else{
+            respNode.innerHTML="两次输入密码不一致".fontcolor('#C83935');
+            document.getElementsByName("repwd")[0].style.border='1px solid #C83935';
+        }
+        return flag;
+    }
+    function checkform(){
+        return checkusername()&&checkrepwd()&&checkemail()&&checkpwd();
+    }
+
+  
+  	</script>       
+         
+
+	
+	
+	
+	
+  </body>
+</html>

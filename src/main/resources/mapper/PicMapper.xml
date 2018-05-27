@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pan.springboot.dao.PicMapper">
+  <resultMap id="BaseResultMap" type="com.pan.springboot.entity.Pic">
+    <id column="pic_id" jdbcType="BIGINT" property="picId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="plike" jdbcType="BIGINT" property="plike" />
+    <result column="timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="pic_describe" jdbcType="VARCHAR" property="picDescribe" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="parent" jdbcType="BIGINT" property="parent" />
+  </resultMap>
+  <resultMap id="PicCustom" extends="BaseResultMap" type="com.pan.springboot.entity.PicCustom">
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    pic_id, user_id, plike, timestamp, pic_describe, path, parent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT  p.pic_id, u.username, p.plike, p.timestamp, p.pic_describe, p.path, p.parent
+    FROM pic AS p
+    LEFT JOIN USER AS u
+    ON p.user_id=u.user_id
+    WHERE p.parent = -1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pic
+    where pic_id = #{picId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pan.springboot.entity.Pic">
+    insert into pic (pic_id, user_id, plike, 
+      timestamp, pic_describe, path, 
+      parent)
+    values (#{picId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{plike,jdbcType=BIGINT}, 
+      #{timestamp,jdbcType=TIMESTAMP}, #{picDescribe,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{parent,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pan.springboot.entity.Pic">
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="picId">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="picId != null">
+        pic_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="plike != null">
+        plike,
+      </if>
+      <if test="timestamp != null">
+        timestamp,
+      </if>
+      <if test="picDescribe != null">
+        pic_describe,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="picId != null">
+        #{picId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="plike != null">
+        #{plike,jdbcType=BIGINT},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picDescribe != null">
+        #{picDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.springboot.entity.Pic">
+    update pic
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="plike != null">
+        plike = #{plike,jdbcType=BIGINT},
+      </if>
+      <if test="timestamp != null">
+        timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picDescribe != null">
+        pic_describe = #{picDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pic_id = #{picId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pan.springboot.entity.Pic">
+    update pic
+    set user_id = #{userId,jdbcType=BIGINT},
+      plike = #{plike,jdbcType=BIGINT},
+      timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      pic_describe = #{picDescribe,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=BIGINT}
+    where pic_id = #{picId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectCover" resultMap="PicCustom">
+    SELECT  p.pic_id, u.username, p.plike, p.timestamp, p.pic_describe, p.path, p.parent
+    FROM pic AS p
+    LEFT JOIN USER AS u
+    ON p.user_id=u.user_id
+    WHERE p.parent = -1
+    order by TIMESTAMP DESC
+  </select>
+</mapper>

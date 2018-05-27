@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pan.springboot.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.pan.springboot.entity.User">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="gender" jdbcType="BIGINT" property="gender" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="headimg" jdbcType="VARCHAR" property="headimg" />
+    <result column="statement" jdbcType="VARCHAR" property="statement" />
+    <result column="regist_time" jdbcType="TIMESTAMP" property="registTime" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="ustaus" jdbcType="VARCHAR" property="ustaus" />
+    <result column="user_ip" jdbcType="VARCHAR" property="userIp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, username, pwd, email, qq, gender, birthday, headimg, statement, regist_time, 
+    login_time, ustaus, user_ip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pan.springboot.entity.User">
+    insert into user (user_id, username, pwd, 
+      email, qq, gender, birthday, 
+      headimg, statement, regist_time, 
+      login_time, ustaus, user_ip
+      )
+    values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{gender,jdbcType=BIGINT}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{headimg,jdbcType=VARCHAR}, #{statement,jdbcType=VARCHAR}, #{registTime,jdbcType=TIMESTAMP}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{ustaus,jdbcType=VARCHAR}, #{userIp,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pan.springboot.entity.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="headimg != null">
+        headimg,
+      </if>
+      <if test="statement != null">
+        statement,
+      </if>
+      <if test="registTime != null">
+        regist_time,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="ustaus != null">
+        ustaus,
+      </if>
+      <if test="userIp != null">
+        user_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BIGINT},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="headimg != null">
+        #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="statement != null">
+        #{statement,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null">
+        #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ustaus != null">
+        #{ustaus,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null">
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.springboot.entity.User">
+    update user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BIGINT},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="headimg != null">
+        headimg = #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="statement != null">
+        statement = #{statement,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null">
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ustaus != null">
+        ustaus = #{ustaus,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null">
+        user_ip = #{userIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pan.springboot.entity.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BIGINT},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      headimg = #{headimg,jdbcType=VARCHAR},
+      statement = #{statement,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=TIMESTAMP},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      ustaus = #{ustaus,jdbcType=VARCHAR},
+      user_ip = #{userIp,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <select id="findByuserNameAndPwd" parameterType="com.pan.springboot.entity.User" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from user
+    where user.username=#{username} OR user.email=#{username} and user.pwd=#{pwd}
+  </select>
+  <select id="findByUstaus" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from user
+    where user.ustaus=#{code}
+  </select>
+</mapper>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    
+    <title>login</title>
+
+
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/pstyle.css" />
+	<link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="css/menu.css" >
+
+  </head>
+  
+  <body class="fullbody">
+  <div th:replace="navbar-left :: navbar-left"></div>
+  <div th:replace="navbar :: navbar2"></div>
+
+  <div class="hidden-xs hidden-sm hidden-md">
+	<!-- ========= VIDIO STRAT =========-->            
+	<video autoplay="autoplay" muted="muted"   poster="img/vidio.jpg" loop="loop" style=" width: 100%; height: 100%;object-fit:cover;object-position:center center">
+		<source type="video/webm" src="img/mainvidio.webm"/>
+		<source type="video/mp4" src="img/mainvidio.mp4"/>
+	</video>
+	<div class="background-overlay"  style="background-color: rgba(48,38,38,0.7);"></div> 
+	<!-- ========= VIDIO END =========-->
+  </div>
+		<div class="login-container min-shadow">
+			<div class="login-title font-red" th:text="${msg}">错误信息</div>
+			<div style="text-align: center"><a><span id="time"></span><span>&ensp;秒后将回到主页,若没有反应请点此处</span></a></div>
+		</div>
+	<!--	<div class="card-mobile bg-white min-shadow visible-xs visible-sm visible-md">
+			<div class="login-title font-red" th:text="${msg}">错误信息</div>
+			<div><a><span id="time">5</span><span>&ensp;秒后将回到主页,若没有反应请点此处</span></a></div>
+		</div>-->
+
+   
+	<!--==========Plugins JS ==========-->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+	
+	
+    <script type="text/javascript">
+    	$(function(){
+	    	var maxtime = 5;
+	    	function CountDown(){
+	    		if(maxtime>=0){
+	    			$("#time").html(maxtime);
+	    			maxtime=maxtime-1;
+	    			setTimeout(CountDown,1000);
+	    		}
+	    	}
+	    	CountDown();
+	    	setTimeout(function() {
+	    		window.location.href="/toSignUp"
+	    	}, 5000)
+    	});
+    	
+    </script>     
+	
+	
+  </body>
+</html>

@@ -1,0 +1,49 @@
+server:
+  port: 8080
+spring:
+  datasource:
+      url: jdbcUrl
+      username: 用户名
+      password: 密码
+      driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: true
+    encoding: UTF-8
+    content-type: text/html; charset=utf-8
+    prefix: classpath:/templates/ 
+    suffix: .html
+    mode: LEGACYHTML5
+  mail:
+    host: smtpdm.aliyun.com
+    port: 465
+    username: 用户名
+    password: 密码
+    default-encoding: UTF-8
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+              enable: true
+              required: true
+  http:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 30Mb
+logging:
+  level:
+    org.springframework: warn
+    com.pan.springboot.dao: debug
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+
+    
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.pan.springboot.entity
+#  configLocation: classpath:mybatis-config.xml
+#

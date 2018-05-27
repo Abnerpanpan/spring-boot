@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+	<link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+	<link rel="Bookmark" href="img/logo.ico">
+    <title>小熊博客</title>
+
+	<link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css">  <!-- Font Icons -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/skin/cool-gray.css">
+	<link rel="stylesheet" href="css/components/sticky.css" />
+
+
+	<link rel="stylesheet" href="css/pstyle.css" /> 
+    <link rel="stylesheet" href="css/menu.css" >
+  </head>
+  
+  <body>
+  
+	<div th:replace="navbar-left :: navbar-left"></div>
+	<div th:replace="navbar :: navbar2"></div>
+		
+   	<!--==========BEGIN TOPCARD ==========-->    
+   	<div class="container">
+    	<div th:if="${session.user!=null}" class="col-xs-12 topcard pmargin-top-lg bg-white min-shadow min-radius" >
+    		<span class="in-topcard"><a href="newBlog"><i class="uk-icon-pencil padding-right-5"></i>写博客</a></span>
+    		<span class="in-topcard-last"><a href="newBlog"><i class="uk-icon-paw padding-right-5"></i>分享故事</a></span>
+    	</div>
+   	</div>
+   	<!--==========END TOPCARD ==========-->
+   	
+	<!--==========BEGIN LEFTCARD ==========-->        
+    <div class="container pmargin-top-lg main">
+		<div id="mainContainer" class="col-sm-9  bg-white min-shadow min-radius padding-lg" >
+			<div class="card" th:each="article:${dataList}">
+				<div class="incard-top">
+					<span  class="inbottom-left-lg" style="block">
+						来自<span th:text="${article.selectionName}">JAVA</span>
+					</span>
+					<span th:text="${article.createUser}" class="inbottom-left-lg">
+					User
+					</span>
+				</div>
+				<a href="#" th:href="@{'/toBlogPage?articleId='+${article.articleId}}">
+					<div class="incard-title">
+						<strong  th:utext="${article.title}">java开发，面试刚过，跟公司签约有什么注意事项？</strong>
+					</div>
+					<div th:text="${article.articleAbstract}" th:name="articleAbstract" class="incard-text"></div>
+					<!--<div name="artileContent" class="incard-text"></div>
+					<div name="artileContentHide" th:utext="${article.content}" style="display: none">
+						我来讲讲我的，两段经历吧。 一般大公司都是正规合同，公积金，社保都是全额。 我20K，拿到手只有15K。 小公司则不一样。 合同上面工资写的是3K。但是实际上，给你发的是你和它谈好的价格。 这样有两个好处，公司少交公积金，社保。你拿到手的也会多很多。 也就是20K，我到手能有17.5K。 但是如果发生劳务纠纷，可能就是按3K来赔偿
+					</div>-->
+				</a>
+				<div class="incard-bottom">
+					<div class="inbottom-left uk-icon-commenting">
+					<span th:text="${article.replayCount}">999</span>人评论
+					</div>
+				</div>
+			</div>
+			<div id="showMore" class="padding-sm" style="display: none" onclick="showMore()">
+				<div class="page-load-status" style="display: block">别拉了,下边没有啦~</div>
+			</div>
+			<div class="loader-ellips infinite-scroll-request" style="display: none">
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+			</div>
+			<div id="totalPages" th:text="${totalPages}" style="display: none"></div>
+
+		</div>
+		<!--==========END LEFTNEWS ==========-->
+
+	    <!--==========BEGIN RIGHT CARD ==========-->  
+		<div class="col-sm-3 nopadding padding-left-20 hidden-xs">
+			<div class="rightcard bg-white min-shadow">
+				<div class="righttag-left"><i class="uk-icon-hashtag  padding-right-5"></i></div>
+					<strong>Abner</strong>&emsp;&emsp;常年混迹it界，干过产品，打过管理，揍过后台，搞过前端，挑过网管，砍过顾问。目前小熊博客作者。
+			</div>
+		</div>
+
+		<a href="#" ><i class="uk-icon-arrow-up toTop"></i></a> <!-- Scroll to top button -->
+    </div>
+
+
+	<div th:replace="footer :: footer"></div>
+
+         
+	<!--==========Plugins JS ==========-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+	<script src="js/components/sticky.js"></script>	
+	<script src="js/pan.js"></script>
+	<script src="inc/jquery.easing.min.js"></script>
+	<!--去掉所有正文格式-->
+
+<!--	<script type="text/javascript">
+		$(document).ready(function(){
+			$(function () {
+				var contentHide=document.getElementsByName("artileContentHide");
+				var content=document.getElementsByName("artileContent");
+				for(var i=0;i<contentHide.length;i++){
+					content[i].innerHTML=contentHide[i].innerHTML.replace(/<[^>].*?>/g,"");
+				}
+			})
+		})
+	</script>-->
+
+	<script type="text/javascript">
+        function insertDiv(data) {
+            var showMore=$("#showMore");
+            var html="";
+            for (var i=0;i<data.length;i++){
+                html+='<div class="card">';
+                html+='<div class="incard-top">';
+                html+='<span class="inbottom-left-lg" style="block">';
+                html+='来自<span>'+data[i].selectionName+'</span>';
+                html+='</span>';
+                html+='<span class="inbottom-left-lg">';
+                html+=data[i].createUser;
+                html+='</span>';
+                html+='</div>';
+                html+='<a href="/toBlogPage?articleId=';
+                html+=data[i].articleId;
+                html+='">';
+                html+='<div class="incard-title">';
+                html+='<strong>';
+                html+=data[i].title;
+                html+='</strong>';
+                html+='</div>';
+                html+='<div class="incard-text">';
+                html+=data[i].articleAbstract;
+                html+='</div>';
+                html+='</a>';
+                html+='<div class="incard-bottom">';
+                html+='<div class="inbottom-left uk-icon-commenting">';
+                html+=data[i].replayCount;
+                html+='人评论</div>';
+                html+='</div>';
+                html+='</div>';
+            }
+            $(".loader-ellips").show();
+                showMore.before(html);
+                $(".loader-ellips").hide();
+                if(pageNum>=totalPages){
+                    $("#showMore").show();
+				}
+        }
+
+		var pageNum=2;
+		var totalPages=$("#totalPages").html();
+		var flag = true;
+		$(window).scroll(
+			function() {
+				var scrollHeight = $(document).height()-100; //距离整个文档底部500高度，不随div增加而改变
+				var scrollTop = $(this).scrollTop();  //滚动条y轴位置
+				var windowHeight = $(this).height();  //窗口可视高度
+				if ( scrollTop + windowHeight >= scrollHeight && flag == true && pageNum<=totalPages) {
+					$.ajax({
+						type:"post",
+						url:"/showMoreBlog",
+						data:{pageNum:pageNum},
+						dataType:'json',
+						async: false,
+						beforeSend:function(){
+							flag = false;
+						},
+						success:function (data) {
+                        	insertDiv(data);
+                            pageNum+=1;
+						},
+						complete:function(){
+							flag = true;
+						}
+					})
+				}
+			}
+		);
+
+
+	</script>
+	
+	
+	
+  </body>
+</html>

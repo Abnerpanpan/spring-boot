@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	   xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    
+    <title>userpage</title>
+
+	<link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css">  <!-- Font Icons -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/skin/cool-gray.css">
+
+
+	<link rel="stylesheet" href="css/pstyle.css" />
+  </head>
+  
+  <body>
+
+  <div th:replace="navbar-left :: navbar-left"></div>
+  <div th:replace="navbar :: navbar2"></div>
+		
+   	<!--==========BEGIN TOPCARD ==========-->  		
+   	<div class="container">
+    	<div class="col-xs-12 height-300 pmargintop min-radius nopadding min-shadow" style="background: #96A1A9;">
+	    	<div class="intop ">
+		   		<button type="button" class="pbutton"><i class="uk-icon-camera" style="margin-right: 5px;"></i>上传背景图片</button>
+		    </div>
+    		<div class="inbottom">
+    			<button class="editbutton">编辑个人资料</button>
+    			<div class="profilecontent">
+    				<img alt="" src="img/head.jpg">
+    			</div>
+    			<div class="userdetail">
+    				<div class="username">
+    				七月未央
+    				</div>
+    				<div class="pdetail">
+    				<i class="uk-icon-mars" style="margin-right: 5px;"></i>
+    				男
+    				</div>
+    				<div class="pdetail" style="display:none;">
+    				<i class="uk-icon-venus" style="margin-right: 5px;"></i>
+    				女
+    				</div>
+    				<div class="pdetail">
+    					<a><i class="uk-icon-angle-down" style="margin-right: 5px;"></i>查看祥细资料</a>
+    				</div>
+    			</div>
+    		</div>		    
+    	</div>
+   	</div>		
+   	<!--==========END TOPCARD ==========-->		
+		
+		
+   	<div class="container margin-top-10">	
+		<div class="col-sm-9 nopadding ">
+			<div class=" bg-white min-shadow min-radius" style="height: 1000px;">
+					<nav class="nav-line">
+						<ul class="incard-nav" data-uk-switcher="{connect:'#my-id', animation: 'fade'}">
+							<li><a >帖子</a></li>
+							<li><a href="#">动态</a></li>
+							<li><a href="#">收藏</a></li>
+						</ul>
+					</nav>
+					<ul id="my-id" class="uk-switcher">
+					    <li class="minicard-padding">
+					    	<div class="minicard bg-white bottom-line">
+					    		<a>java开发，面试刚过，跟公司签约有什么注意事项？</a>
+					    		<span class="mini-time">2017-01-01 00:12:11</span>
+					    	</div>
+					    	<div class="minicard bg-white bottom-line">
+					    		<a>java开发，面试刚过，跟公司签约有什么注意事项？</a>
+					    		<span class="mini-time">2017-01-01 00:12:11</span>					    		
+					    	</div>
+					    	<div class="minicard bg-white bottom-line">
+					    		<a>java开发，面试刚过，跟公司签约有什么注意事项？</a>
+					    		<span class="mini-time">2017-01-01 00:12:11</span>	
+					    	</div>
+					    	<div class="minicard bg-white bottom-line">
+					    		<a>java开发，面试刚过，跟公司签约有什么注意事项？</a>
+					    		<span class="mini-time">2017-01-01 00:12:11</span>	
+					    	</div>
+					    </li>
+					    <li>2222222222</li>
+					    <li>3333333333</li>
+					</ul>
+			</div>
+		</div> 	
+		<div class="col-sm-3 nopadding padding-left-10" style="height: 400px;">
+			<div class="bg-white min-shadow min-radius" style="height: 400px;">
+			</div>
+		</div>
+    </div> 
+	         
+
+         
+         
+	<!--==========Plugins JS ==========-->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+	
+	
+	
+	
+	
+	
+  </body>
+</html>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pan.springboot.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.pan.springboot.entity.Comment">
+    <id column="comment_id" jdbcType="BIGINT" property="commentId" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="clike" jdbcType="BIGINT" property="clike" />
+    <result column="isread" jdbcType="INTEGER" property="isread" />
+    <result column="parent_comment_id" jdbcType="BIGINT" property="parentCommentId" />
+    <result column="floor" jdbcType="BIGINT" property="floor" />
+    <result column="haschild" jdbcType="INTEGER" property="hasChild" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="resultCommentWithCustom" type="com.pan.springboot.entity.CommentCustom">
+    <result column="username" jdbcType="BIGINT" property="username" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    comment_id, article_id, user_id, timestamp, content, clike, isread, parent_comment_id, 
+    floor,haschild
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from comment
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pan.springboot.entity.Comment">
+    insert into comment (comment_id, article_id, user_id, 
+      timestamp, content, clike, 
+      isread, parent_comment_id, floor,haschild
+      )
+    values (#{commentId,jdbcType=BIGINT}, #{articleId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{timestamp,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, #{clike,jdbcType=BIGINT}, 
+      #{isread,jdbcType=INTEGER}, #{parentCommentId,jdbcType=BIGINT}, #{floor,jdbcType=BIGINT}, #{hasChild,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pan.springboot.entity.Comment">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="timestamp != null">
+        timestamp,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="clike != null">
+        clike,
+      </if>
+      <if test="isread != null">
+        isread,
+      </if>
+      <if test="parentCommentId != null">
+        parent_comment_id,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="hasChild != null">
+        haschild,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="clike != null">
+        #{clike,jdbcType=BIGINT},
+      </if>
+      <if test="isread != null">
+        #{isread,jdbcType=INTEGER},
+      </if>
+      <if test="parentCommentId != null">
+        #{parentCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=BIGINT},
+      </if>
+      <if test="hasChild != null">
+        #{hasChild,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.springboot.entity.Comment">
+    update comment
+    <set>
+      <if test="articleId != null">
+        article_id = #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="timestamp != null">
+        timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="clike != null">
+        clike = #{clike,jdbcType=BIGINT},
+      </if>
+      <if test="isread != null">
+        isread = #{isread,jdbcType=INTEGER},
+      </if>
+      <if test="parentCommentId != null">
+        parent_comment_id = #{parentCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=BIGINT},
+      </if>
+      <if test="hasChild != null">
+        haschild = #{hasChild,jdbcType=INTEGER},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pan.springboot.entity.Comment">
+    update comment
+    set article_id = #{articleId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      clike = #{clike,jdbcType=BIGINT},
+      isread = #{isread,jdbcType=INTEGER},
+      parent_comment_id = #{parentCommentId,jdbcType=BIGINT},
+      floor = #{floor,jdbcType=BIGINT}
+      haschild = #{hasChild,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </update>
+  <select id="selectCommentByArticleId" parameterType="java.lang.Long" resultMap="resultCommentWithCustom">
+    SELECT
+    c.comment_id, c.article_id, c.user_id, c.timestamp, c.content, c.clike, c.isread, c.parent_comment_id,
+    c.floor, c.haschild, u.username
+    from comment As c
+    LEFT JOIN USER As u
+    ON c.user_id=u.user_id
+    where article_id = #{article_id,jdbcType=BIGINT} AND parent_comment_id=0
+    ORDER BY floor
+  </select>
+  <select id="countFloor" parameterType="java.lang.Long" resultType="java.lang.Long">
+    SELECT COUNT(FLOOR)  FROM COMMENT WHERE parent_comment_id = 0 AND article_id = #{article_id,jdbcType=BIGINT}
+  </select>
+  <select id="selectCommentSecond" parameterType="java.lang.Long" resultMap="resultCommentWithCustom">
+    SELECT
+    c.comment_id, c.article_id, c.user_id, c.timestamp, c.content, c.clike, c.isread, c.parent_comment_id,
+    c.floor, c.haschild, u.username
+    from comment As c
+    LEFT JOIN USER As u
+    ON c.user_id=u.user_id
+    where floor = 0 AND parent_comment_id = #{parent_comment_id,jdbcType=BIGINT}
+    ORDER BY timestamp
+  </select>
+  <delete id="deletByParentId" parameterType="java.lang.Long">
+    delete from comment
+    where parent_comment_id = #{parentCommentId,jdbcType=BIGINT}
+  </delete>
+</mapper>

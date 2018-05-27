@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+	<link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+	<link rel="Bookmark" href="img/logo.ico">
+    <title>小熊博客</title>
+
+
+	<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css">  <!-- Font Icons -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/skin/cool-gray.css">
+	<link rel="stylesheet" href="css/components/sticky.css" />
+
+	  <link rel="stylesheet" href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css" />
+	<link rel="stylesheet" href="css/pstyle.css" />
+    <link href="css/menu.css" rel="stylesheet">
+  </head>
+
+  <body class="main">
+	<div th:replace="navbar-left :: navbar-left"></div>
+	<div th:replace="navbar :: navbar2"></div>
+
+
+
+
+   	<div class="container pmargin-lg ">
+		<div class="col-sm-9 nopadding ">
+			<form id="commentForm">
+				<input th:name="articleId" th:value="${dataList.articleId}" type="hidden">
+				<input th:name="userId" th:value="${dataList.userId}" type="hidden">
+				<div class=" bg-white min-shadow min-radius padding-lg" >
+					<div th:text="${dataList.title}" class="blog-title">Spring Boot 入门教程</div>
+					<div class="article-bar">
+						<span th:text="${#dates.format(dataList.creatTime,'yyyy年MM月dd日 HH:mm:ss')}">2017年12月02日 18:58:20</span>
+						<span  class="uk-float-right"><i  class="uk-icon-eye padding-right-5"></i><span th:text="${dataList.clickCount}">999</span></span>
+						<span  class="uk-float-right padding-right-5"><a th:if="${session.user}!=null and ${session.user.userId == dataList.userId }" th:href="'/editBlog?articleId='+${dataList.articleId}" th:text="编辑">编辑</a></span>
+					</div>
+					<div th:utext="${dataList.content}" class="blog-content padding-lg-y"></div>
+				</div>
+				<div class="comment-container bg-white min-shadow  pmargin-top-lg bottom-line" >
+						<div class="usering"></div>
+						<textarea id="content" th:name="content" rows="" cols="" class="comment-box" placeholder="发表你的评论"></textarea>
+						<div class="comment-bottom">
+							<button id="commentBtn" onclick="comment()" type="button" class="comment-btn">发表评论</button>
+						</div>
+				</div>
+				<div class="comment-list bg-white min-shadow  uk-clearfix">
+					<div th:each="commentList:${commentList}" class="comment-list-box-out">
+						<div class="usering"></div>
+						<div class="comment-list-box" >
+							<div id="post_field"  class="comment-list-box-detail ">
+								<span><a th:text="${commentList.commentRoot.username}">admin</a></span>
+								<span th:text="${#dates.format(commentList.commentRoot.timestamp,'yyyy-MM-dd HH:mm:ss')}" class="padding-left-10">2018-01-01</span>
+								<span th:text="${commentList.commentRoot.floor}+'#'" class="uk-float-right">1#</span>
+								<span class="com-reply" onclick="replayOther(this)"><a href="#" >回复</a></span>
+								<span th:text="${commentList.commentRoot.commentId}" style="display: none"></span>
+								<span th:if="${commentList.commentRoot.hasChild!=0}"  onclick="showReplay(this)" class="com-reply">
+									<a href="javascript:void(0)"><span th:text="${commentList.commentRoot.hasChild}">1</span>条回复<i class="uk-icon-angle-down padding-left-5"></i></a>
+								</span>
+                                <span class="uk-float-right padding-right-5" onclick="deleteComment(this)"><a href="javascript:void(0)">删除</a></span>
+							</div>
+							<div th:text="${commentList.commentRoot.content}" class="pmargin-bottom-small">写得非常不错，大赞一下！第一个彻底禁用拖动不错，大赞一下！第一个不错，大赞一下！</div>
+						</div>
+
+						<div id="commentSecond"  style="display: none">
+							<div th:each="commentSecond:${commentList.commentSecond}" class="comment-list-box-out-2">
+								<div class="usering"></div>
+								<div class="comment-list-box-2" >
+									<div  class="comment-list-box-detail-2 ">
+										<span><a th:text="${commentSecond.username}">admin</a></span>
+										<span  th:text="${#dates.format(commentSecond.timestamp,'yyyy-MM-dd HH:mm:ss')}"  class="padding-left-10">2018-01-01</span>
+									</div>
+									<div class="pmargin-bottom-small">回复<span th:text="${commentList.commentRoot.username}+'：'">admin：</span>
+										<span  th:text="${commentSecond.content}" >写得非常不错，大赞一下！第个不错，一下！第一个，特别好用！写</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="fix-left">
+				    <a><div  class="fix-1 buttn-fix  min-shadow hidden-xs"><i class="uk-icon-heart-o uk-icon-small "></i></div></a>
+				    <a><div  class="fix-2 buttn-fix  min-shadow hidden-xs"><i class="uk-icon-bookmark-o uk-icon-small "></i></div></a>
+				    <a><div  class="fix-3 buttn-fix  min-shadow hidden-xs"><i class="uk-icon-commenting-o uk-icon-small "></i></div></a>
+				    <a><div  class="fix-4 buttn-fix  min-shadow hidden-xs"><i class="uk-icon-share-alt uk-icon-small "></i></div></a>
+			    </div>
+			</form>
+		</div>
+
+		<div class="col-sm-3 nopadding padding-left-20 hidden-xs">
+			<div class="bg-white min-shadow min-radius" style="height: 400px;">
+			</div>
+		</div>
+    </div>
+
+
+	<a href="#" ><i class="uk-icon-arrow-up toTop "></i></a> <!-- Scroll to top button -->
+	<div th:replace="footer :: footer"></div>
+
+
+	<!--==========Plugins JS ==========-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/uikit/2.25.0/js/uikit.js"></script>
+	<script src="js/components/sticky.js"></script>
+	<script src="js/pan.js"></script>
+	<script src="inc/jquery.easing.min.js"></script>
+	<script type="text/javascript">
+			function comment() {
+                $.ajax({
+                    type:"post",
+                    url:"/saveComment",
+                    data:$("#commentForm").serialize(),
+                    dataType:'json',
+                    async: false,
+                    success:function (data) {
+                        if(data==100){
+                            window.location.reload();
+                            $("#content").val("");
+                        }else {
+                            alert("出错啦~");
+                        }
+                    }
+                })
+            }
+	</script>
+  	<script type="text/javascript">
+		function replayOther(obj) {
+			var floor=$(obj).prev().text().substring(0,1);
+			var reqlayToName=$(obj).prev().prev().prev().text();
+			var parentCommentId=$(obj).next().text();
+			$("#content").attr("placeholder","回复"+reqlayToName+"：");
+
+            var new_inp=document.createElement("input");
+            new_inp.setAttribute("type", "hidden");
+            new_inp.setAttribute("id", "parentCommentId");
+            new_inp.setAttribute("name", "parentCommentId");
+            new_inp.setAttribute("value", parentCommentId);
+            $("#post_field").append(new_inp);
+
+            $("html,body").animate({
+                scrollTop: $(".comment-container").offset().top-100
+            }, 200)
+            $("#content").focus();
+        }
+	</script>
+    <script type="text/javascript">
+        function deleteComment(obj) {
+           var $commentId= $(obj).prev().text();
+            $.ajax({
+                type:"post",
+                url:"/deleteComment",
+                data:{"commentId":$commentId},
+                dataType:'json',
+                async: false,
+                success:function (data) {
+                    if(data==100){
+                        window.location.reload();
+                    }else {
+                        alert("出错啦~")
+                    }
+                }
+            })
+        }
+    </script>
+	<script type="text/javascript">
+		var base="小熊博客::";
+        document.title =base+ $(".blog-title").html();
+	</script>
+
+  </body>
+</html>
